@@ -1412,8 +1412,20 @@ code {
     }
 
     .hero-telemetry {
-        grid-template-columns: 1fr;
-        gap: 10px;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+    }
+
+    .telemetry-card {
+        padding: 14px 8px;
+    }
+
+    .telemetry-value {
+        font-size: 1.45rem;
+    }
+
+    .telemetry-label {
+        font-size: 0.68rem;
     }
 
     .nav-status-widget {
@@ -1474,5 +1486,24 @@ code {
     .footer-container {
         flex-direction: column;
         text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-telemetry {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 6px;
+    }
+
+    .telemetry-card {
+        padding: 10px 4px;
+    }
+
+    .telemetry-value {
+        font-size: 1.25rem;
+    }
+
+    .telemetry-label {
+        font-size: 0.62rem;
     }
 }

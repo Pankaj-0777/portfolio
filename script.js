@@ -291,6 +291,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ============ TELEMETRY COUNTER ANIMATION ============
     const counters = document.querySelectorAll('.counter');
+
+    function animateCounter(element, target) {
+        if (isNaN(target) || target <= 0) return;
+        element.textContent = '0';
+        const duration = 1200;
+        const startTime = performance.now();
+
+        function update(currentTime) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            // Cubic ease-out curve
+            const easeOut = 1 - Math.pow(1 - progress, 3);
+            const currentVal = Math.round(easeOut * target);
+            element.textContent = currentVal;
+
+            if (progress < 1) {
+                requestAnimationFrame(update);
+            } else {
+                element.textContent = target;
+            }
+        }
+        requestAnimationFrame(update);
+    }
+
     const counterObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -299,26 +323,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 counterObserver.unobserve(entry.target);
             }
         });
-    }, { threshold: 0.4 });
+    }, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' });
 
     counters.forEach(counter => counterObserver.observe(counter));
-
-    function animateCounter(element, target) {
-        let current = 0;
-        const steps = 24;
-        const increment = target / steps;
-        const stepTime = 1200 / steps;
-
-        const timer = setInterval(() => {
-            current += increment;
-            if (current >= target) {
-                element.textContent = target;
-                clearInterval(timer);
-            } else {
-                element.textContent = Math.floor(current);
-            }
-        }, stepTime);
-    }
 
     // ============ ACTIVE NAV LINK ON SCROLL ============
     const sections = document.querySelectorAll('section[id]');
