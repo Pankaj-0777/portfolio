@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pankaj — Software Engineer</title>
-    <meta name="description" content="Portfolio of Pankaj — Software Engineer specializing in Full-Stack Development, IoT Systems, and Machine Learning.">
+    <title>Pankaj — Software Engineer & Systems Architect</title>
+    <meta name="description" content="Portfolio of Pankaj — Software Engineer specializing in AI Agent Security, Full-Stack Development, Intelligent Automation, and IoT Systems.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -15,295 +15,536 @@
     <!-- ============ CURSOR GLOW ============ -->
     <div class="cursor-glow" id="cursorGlow"></div>
 
+    <!-- ============ TOAST NOTIFICATION ============ -->
+    <div class="toast" id="toast">
+        <i class="fa-solid fa-check"></i>
+        <span id="toastMessage">Copied to clipboard!</span>
+    </div>
+
     <!-- ============ NAVBAR ============ -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
-            <a href="#hero" class="nav-logo">&lt;Pankaj /&gt;</a>
+            <a href="#hero" class="nav-logo">
+                <span class="logo-bracket">&lt;</span>Pankaj<span class="logo-slash"> /</span><span class="logo-bracket">&gt;</span>
+            </a>
+
+            <div class="nav-status-widget">
+                <span class="status-pulse-dot"></span>
+                <span class="status-location">India</span>
+                <span class="status-separator">·</span>
+                <span class="status-time" id="navTime">--:-- -- IST</span>
+            </div>
+
             <ul class="nav-links" id="navLinks">
-                <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#education">Education</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="#projects" class="nav-link-item">Work</a></li>
+                <li><a href="#skills" class="nav-link-item">Skills</a></li>
+                <li><a href="#about" class="nav-link-item">About</a></li>
+                <li><a href="#education" class="nav-link-item">Timeline</a></li>
+                <li><a href="#contact" class="nav-link-item">Contact</a></li>
             </ul>
-            <a href="#contact" class="nav-cta">Let's Talk</a>
-            <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
-                <span></span><span></span><span></span>
-            </button>
+
+            <div class="nav-actions">
+                <button class="sound-toggle" id="soundToggle" aria-label="Toggle UI Audio">
+                    <i class="fa-solid fa-volume-xmark" id="soundIcon"></i>
+                    <span id="soundLabel">Audio: OFF</span>
+                </button>
+                <a href="#contact" class="nav-cta">Let's Talk</a>
+                <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
         </div>
     </nav>
 
     <!-- ============ HERO ============ -->
     <section class="hero" id="hero">
         <div class="hero-bg-grid"></div>
+        <div class="hero-radial-gradient"></div>
+
         <div class="hero-content">
             <div class="hero-badge" data-animate="fade-up">
-                <span class="badge-dot"></span> Open to Opportunities
+                <span class="badge-dot"></span>
+                <span>Open for Full-Time Engineering & High-Impact Roles</span>
             </div>
+
             <h1 data-animate="fade-up" data-delay="100">
-                Hi, I'm <span class="gradient-text">Pankaj</span>
+                Hi, I'm <span class="gradient-text">Pankaj</span> <br>
+                <span class="hero-title-sub">Software Engineer &amp; Systems Architect</span>
             </h1>
+
             <div class="typewriter-wrapper" data-animate="fade-up" data-delay="200">
-                <span class="typewriter-prefix">I build </span>
+                <span class="typewriter-prefix">Engineering </span>
                 <span class="typewriter-text" id="typewriter"></span>
                 <span class="typewriter-cursor">|</span>
             </div>
+
             <p class="hero-description" data-animate="fade-up" data-delay="300">
-                Software Engineer crafting full-stack web apps, IoT systems, and intelligent automation tools.
-                CSE graduate from Chandigarh University with a passion for solving real-world problems through code.
+                Computer Science graduate from Chandigarh University with a focus on
+                <strong>AI Agent Security Firewalls</strong>, <strong>Real-Time Synchronized Media</strong>,
+                and <strong>Intelligent Hardware Automation</strong>. Building high-performance software with zero compromise on reliability.
             </p>
+
             <div class="hero-actions" data-animate="fade-up" data-delay="400">
                 <a href="#projects" class="btn btn-primary">
-                    <i class="fa-solid fa-rocket"></i> View My Work
+                    <i class="fa-solid fa-layer-group"></i> Explore Selected Work
                 </a>
-                <a href="#contact" class="btn btn-outline">
-                    <i class="fa-solid fa-envelope"></i> Get In Touch
+                <a href="https://github.com/Pankaj-0777" target="_blank" class="btn btn-outline">
+                    <i class="fa-brands fa-github"></i> GitHub Profile
                 </a>
+                <button class="btn btn-ghost" id="copyEmailBtn" data-email="pankajrajput26121976@gmail.com">
+                    <i class="fa-regular fa-copy"></i> Copy Email
+                </button>
             </div>
-            <div class="hero-stats" data-animate="fade-up" data-delay="500">
-                <div class="stat">
-                    <span class="stat-number" data-count="3">0</span>+
-                    <span class="stat-label">Projects Built</span>
+
+            <!-- Telemetry Metrics Strip -->
+            <div class="hero-telemetry" data-animate="fade-up" data-delay="500">
+                <div class="telemetry-card">
+                    <span class="telemetry-value"><span class="counter" data-count="4">0</span>+</span>
+                    <span class="telemetry-label">Engineered Systems</span>
                 </div>
-                <div class="stat">
-                    <span class="stat-number" data-count="5">0</span>+
-                    <span class="stat-label">Technologies</span>
+                <div class="telemetry-card">
+                    <span class="telemetry-value">&lt;<span class="counter" data-count="2">0</span>ms</span>
+                    <span class="telemetry-label">Proxy Latency</span>
                 </div>
-                <div class="stat">
-                    <span class="stat-number" data-count="3">0</span>
-                    <span class="stat-label">Certifications</span>
+                <div class="telemetry-card">
+                    <span class="telemetry-value"><span class="counter" data-count="14">0</span>+</span>
+                    <span class="telemetry-label">Core Tech Stack</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ============ ABOUT ============ -->
-    <section class="section" id="about">
+    <!-- ============ SELECTED PROJECTS ============ -->
+    <section class="section" id="projects">
         <div class="container">
-            <h2 class="section-title" data-animate="fade-up">
-                <span class="section-number">01.</span> About Me
-            </h2>
-            <div class="about-grid">
-                <div class="about-text" data-animate="fade-right">
-                    <p>
-                        I'm a <strong>Computer Science & Engineering</strong> graduate from Chandigarh University
-                        with a deep passion for building software that makes an impact. I love the process of
-                        turning ideas into working products — from sketching the architecture to shipping
-                        the final deployment.
-                    </p>
-                    <p>
-                        My experience spans <strong>full-stack web development</strong>, <strong>IoT systems</strong>,
-                        and <strong>machine learning</strong>. I've built real-time audio streaming platforms,
-                        smart farming systems with live sensor data, and voice-command assistants — always
-                        focusing on solving real problems with clean, maintainable code.
-                    </p>
-                    <p>
-                        When I'm not coding, I bring the same discipline and teamwork I developed through
-                        <strong>NCC B Certificate</strong> training into everything I do. I'm a fast learner who
-                        thrives on new challenges and isn't afraid to dive deep into unfamiliar territory.
-                    </p>
-                    <div class="about-highlights">
-                        <div class="highlight">
-                            <i class="fa-solid fa-location-dot"></i>
-                            <span>Chandigarh University, Punjab</span>
+            <div class="section-header" data-animate="fade-up">
+                <div class="section-tag">
+                    <i class="fa-solid fa-terminal"></i> PORTFOLIO / 01
+                </div>
+                <h2 class="section-title">Selected Engineering Projects</h2>
+                <p class="section-subtitle">
+                    Architected and shipped production-grade software across AI agent security, voice automation, and distributed real-time platforms.
+                </p>
+            </div>
+
+            <!-- Category Filter -->
+            <div class="project-filters" data-animate="fade-up" data-delay="100">
+                <button class="filter-btn active" data-filter="all">All Projects (4)</button>
+                <button class="filter-btn" data-filter="ai">AI &amp; Security</button>
+                <button class="filter-btn" data-filter="voice">Voice &amp; Automation</button>
+                <button class="filter-btn" data-filter="web">Full-Stack</button>
+                <button class="filter-btn" data-filter="iot">IoT &amp; ML</button>
+            </div>
+
+            <div class="projects-grid">
+                <!-- 1. AgentGuard -->
+                <article class="project-card featured" data-category="ai" data-animate="fade-up">
+                    <div class="project-top">
+                        <div class="project-meta-left">
+                            <span class="project-badge badge-security">
+                                <i class="fa-solid fa-shield-halved"></i> AI Agent Zero-Trust
+                            </span>
+                            <span class="project-status">v1.0.0 Live</span>
                         </div>
-                        <div class="highlight">
-                            <i class="fa-solid fa-graduation-cap"></i>
-                            <span>B.E. in Computer Science (2022–2026)</span>
-                        </div>
-                        <div class="highlight">
-                            <i class="fa-solid fa-heart"></i>
-                            <span>Full-Stack · IoT · Machine Learning</span>
+                        <div class="project-links">
+                            <a href="https://github.com/Pankaj-0777/agentguard" target="_blank" class="project-link-btn" title="View Source Code on GitHub">
+                                <i class="fa-brands fa-github"></i>
+                                <span>Source Code</span>
+                            </a>
                         </div>
                     </div>
-                </div>
-                <div class="about-image" data-animate="fade-left">
-                    <div class="image-frame">
-                        <img src="profile.jpeg" alt="Pankaj" class="profile-image">
-                        <div class="image-border"></div>
+
+                    <div class="project-body">
+                        <h3 class="project-title">AgentGuard</h3>
+                        <p class="project-role">Lead Architect &amp; Security Engineer · Python / FastAPI / React / AST / Recharts</p>
+                        <p class="project-tagline">Inline Zero-Trust Security Proxy &amp; Real-Time Firewall for Autonomous AI Agents</p>
+
+                        <p class="project-description">
+                            Engineered an inline interception proxy that inspects, validates, and sandboxes autonomous AI agent tool calls
+                            (Bash commands, SQL queries, HTTP requests, Python REPL) with sub-2ms latency. Enforces AST semantic analysis,
+                            Shannon entropy secret leak scanning, SSRF IP perimeter containment, and 0–100 blast-radius scoring with an
+                            interactive SOC analytics dashboard.
+                        </p>
+
+                        <div class="project-benchmarks">
+                            <div class="benchmark-pill">
+                                <span class="benchmark-num">&lt;2ms</span>
+                                <span class="benchmark-lbl">Inspection Overhead</span>
+                            </div>
+                            <div class="benchmark-pill">
+                                <span class="benchmark-num">0–100</span>
+                                <span class="benchmark-lbl">Risk Blast Radius</span>
+                            </div>
+                            <div class="benchmark-pill">
+                                <span class="benchmark-num">SHA-256</span>
+                                <span class="benchmark-lbl">Audit Trail</span>
+                            </div>
+                        </div>
+
+                        <div class="project-tech-stack">
+                            <span class="tech-pill">FastAPI</span>
+                            <span class="tech-pill">Python 3.11</span>
+                            <span class="tech-pill">React 18</span>
+                            <span class="tech-pill">AST Parsing</span>
+                            <span class="tech-pill">Recharts</span>
+                            <span class="tech-pill">Vite</span>
+                            <span class="tech-pill">Shannon Entropy</span>
+                        </div>
                     </div>
-                </div>
+                </article>
+
+                <!-- 2. JARVIS -->
+                <article class="project-card featured" data-category="voice" data-animate="fade-up" data-delay="100">
+                    <div class="project-top">
+                        <div class="project-meta-left">
+                            <span class="project-badge badge-ai">
+                                <i class="fa-solid fa-atom"></i> Voice AI &amp; Automation
+                            </span>
+                            <span class="project-status">Operational</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/Pankaj-0777/jarvis" target="_blank" class="project-link-btn" title="View Source Code on GitHub">
+                                <i class="fa-brands fa-github"></i>
+                                <span>Source Code</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="project-body">
+                        <h3 class="project-title">JARVIS AI Assistant</h3>
+                        <p class="project-role">Full-Stack &amp; Voice Systems Developer · Flask / React / Web Audio / SpeechRecognition</p>
+                        <p class="project-tagline">Next-Gen AI Voice &amp; System Automation Assistant with Iron Man-Inspired HUD</p>
+
+                        <p class="project-description">
+                            Built an AI voice assistant and OS automation system featuring an interactive ARC reactor HUD. Implemented direct
+                            background YouTube video ID resolution and instant video playback, in-browser 16-bit PCM audio recording
+                            (<code>WavRecorder</code>) bypassing native driver dependencies, instant Wikipedia knowledge lookup, and
+                            live hardware telemetry monitoring.
+                        </p>
+
+                        <div class="project-benchmarks">
+                            <div class="benchmark-pill">
+                                <span class="benchmark-num">Instant</span>
+                                <span class="benchmark-lbl">YouTube Playback</span>
+                            </div>
+                            <div class="benchmark-pill">
+                                <span class="benchmark-num">16-bit PCM</span>
+                                <span class="benchmark-lbl">Web Audio Capture</span>
+                            </div>
+                            <div class="benchmark-pill">
+                                <span class="benchmark-num">5000ms</span>
+                                <span class="benchmark-lbl">Live Telemetry Loop</span>
+                            </div>
+                        </div>
+
+                        <div class="project-tech-stack">
+                            <span class="tech-pill">Flask</span>
+                            <span class="tech-pill">React</span>
+                            <span class="tech-pill">Web Audio API</span>
+                            <span class="tech-pill">SpeechRecognition</span>
+                            <span class="tech-pill">psutil</span>
+                            <span class="tech-pill">Lucide Icons</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 3. Mehfil -->
+                <article class="project-card" data-category="web" data-animate="fade-up" data-delay="200">
+                    <div class="project-top">
+                        <div class="project-meta-left">
+                            <span class="project-badge badge-media">
+                                <i class="fa-solid fa-radio"></i> Real-Time Media
+                            </span>
+                            <span class="project-status">v2.0 Synchronized</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/Pankaj-0777/mehfil" target="_blank" class="project-link-btn" title="View Source Code on GitHub">
+                                <i class="fa-brands fa-github"></i>
+                                <span>Source Code</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="project-body">
+                        <h3 class="project-title">Mehfil</h3>
+                        <p class="project-role">Lead Full-Stack Developer · React / Vite / Express.js / Node.js</p>
+                        <p class="project-tagline">Synchronized Real-Time Online Radio Platform with Zero-Drift Playback</p>
+
+                        <p class="project-description">
+                            Full-stack web application delivering real-time, synchronized audio streaming to multiple concurrent
+                            listeners across themed stations. Engineered a custom clock-sync algorithm that eliminates audio playback
+                            drift across network latencies so all listeners hear the exact same timestamp regardless of join time.
+                        </p>
+
+                        <div class="project-benchmarks">
+                            <div class="benchmark-pill">
+                                <span class="benchmark-num">0ms</span>
+                                <span class="benchmark-lbl">Perceived Audio Drift</span>
+                            </div>
+                            <div class="benchmark-pill">
+                                <span class="benchmark-num">Multi-Station</span>
+                                <span class="benchmark-lbl">Parallel Broadcast</span>
+                            </div>
+                        </div>
+
+                        <div class="project-tech-stack">
+                            <span class="tech-pill">React</span>
+                            <span class="tech-pill">Vite</span>
+                            <span class="tech-pill">Express.js</span>
+                            <span class="tech-pill">Node.js</span>
+                            <span class="tech-pill">Web Audio API</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 4. Smart IoT Farming -->
+                <article class="project-card" data-category="iot" data-animate="fade-up" data-delay="300">
+                    <div class="project-top">
+                        <div class="project-meta-left">
+                            <span class="project-badge badge-iot">
+                                <i class="fa-solid fa-microchip"></i> IoT &amp; Embedded ML
+                            </span>
+                            <span class="project-status">Hardware Tested</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/Pankaj-0777" target="_blank" class="project-link-btn" title="View GitHub Profile">
+                                <i class="fa-brands fa-github"></i>
+                                <span>Repository</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="project-body">
+                        <h3 class="project-title">Smart IoT Farming &amp; Irrigation</h3>
+                        <p class="project-role">Embedded Systems &amp; ML Developer · Arduino / ESP8266 / Python / Scikit-Learn</p>
+                        <p class="project-tagline">Autonomous Sensor Telemetry &amp; ML-Driven Predictive Water Management</p>
+
+                        <p class="project-description">
+                            Hardware-software IoT ecosystem integrating DHT11 temperature/humidity sensors and capacitive soil-moisture
+                            probes with ESP8266 microcontrollers. Utilizes machine learning classification models to dynamically optimize
+                            irrigation pumping cycles and maintain an automated SQL sensor history log.
+                        </p>
+
+                        <div class="project-benchmarks">
+                            <div class="benchmark-pill">
+                                <span class="benchmark-num">ESP8266</span>
+                                <span class="benchmark-lbl">Microcontroller Hub</span>
+                            </div>
+                            <div class="benchmark-pill">
+                                <span class="benchmark-num">Real-Time</span>
+                                <span class="benchmark-lbl">Sensor Pipeline</span>
+                            </div>
+                        </div>
+
+                        <div class="project-tech-stack">
+                            <span class="tech-pill">Python</span>
+                            <span class="tech-pill">Arduino C++</span>
+                            <span class="tech-pill">ESP8266</span>
+                            <span class="tech-pill">SQL</span>
+                            <span class="tech-pill">Scikit-Learn</span>
+                        </div>
+                    </div>
+                </article>
             </div>
         </div>
     </section>
 
-    <!-- ============ SKILLS ============ -->
+    <!-- ============ SKILLS & ARCHITECTURE ============ -->
     <section class="section section-alt" id="skills">
         <div class="container">
-            <h2 class="section-title" data-animate="fade-up">
-                <span class="section-number">02.</span> Skills & Technologies
-            </h2>
+            <div class="section-header" data-animate="fade-up">
+                <div class="section-tag">
+                    <i class="fa-solid fa-layer-group"></i> CAPABILITIES / 02
+                </div>
+                <h2 class="section-title">Technical Skills &amp; Stack</h2>
+                <p class="section-subtitle">
+                    Core technologies, frameworks, and engineering disciplines leveraged across production codebases.
+                </p>
+            </div>
+
             <div class="skills-grid">
-                <!-- Languages -->
-                <div class="skill-category" data-animate="fade-up" data-delay="0">
+                <!-- AI & Security Systems -->
+                <div class="skill-category highlight-category" data-animate="fade-up" data-delay="0">
                     <div class="skill-category-header">
-                        <div class="skill-icon"><i class="fa-solid fa-code"></i></div>
-                        <h3>Languages</h3>
+                        <div class="skill-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                        <div>
+                            <h3>AI &amp; Security Systems</h3>
+                            <span class="skill-category-sub">Agent Guardrails &amp; Sandboxing</span>
+                        </div>
                     </div>
                     <div class="skill-tags">
-                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">AST Semantic Analysis</span>
+                        <span class="skill-tag">Shannon Entropy</span>
+                        <span class="skill-tag">SSRF Containment</span>
+                        <span class="skill-tag">Zero-Trust Proxies</span>
+                        <span class="skill-tag">Blast Radius Scoring</span>
+                        <span class="skill-tag">Prompt Defense</span>
+                    </div>
+                </div>
+
+                <!-- Languages -->
+                <div class="skill-category" data-animate="fade-up" data-delay="100">
+                    <div class="skill-category-header">
+                        <div class="skill-icon"><i class="fa-solid fa-code"></i></div>
+                        <div>
+                            <h3>Programming Languages</h3>
+                            <span class="skill-category-sub">Core Systems &amp; Scripting</span>
+                        </div>
+                    </div>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Python (Async/OOP)</span>
+                        <span class="skill-tag">JavaScript (ES6+)</span>
                         <span class="skill-tag">Java</span>
                         <span class="skill-tag">C++</span>
                         <span class="skill-tag">SQL</span>
+                        <span class="skill-tag">Bash</span>
                     </div>
                 </div>
-                <!-- Web Development -->
-                <div class="skill-category" data-animate="fade-up" data-delay="100">
+
+                <!-- Web & Distributed Systems -->
+                <div class="skill-category" data-animate="fade-up" data-delay="200">
                     <div class="skill-category-header">
-                        <div class="skill-icon"><i class="fa-solid fa-globe"></i></div>
-                        <h3>Web Development</h3>
+                        <div class="skill-icon"><i class="fa-solid fa-server"></i></div>
+                        <div>
+                            <h3>Full-Stack &amp; APIs</h3>
+                            <span class="skill-category-sub">Frontend &amp; Backend Engineering</span>
+                        </div>
                     </div>
                     <div class="skill-tags">
                         <span class="skill-tag">React.js</span>
+                        <span class="skill-tag">FastAPI</span>
+                        <span class="skill-tag">Flask</span>
                         <span class="skill-tag">Node.js</span>
                         <span class="skill-tag">Express.js</span>
                         <span class="skill-tag">Vite</span>
-                        <span class="skill-tag">HTML</span>
-                        <span class="skill-tag">CSS</span>
+                        <span class="skill-tag">RESTful APIs</span>
+                        <span class="skill-tag">Web Audio API</span>
                     </div>
                 </div>
-                <!-- Core CS -->
-                <div class="skill-category" data-animate="fade-up" data-delay="200">
-                    <div class="skill-category-header">
-                        <div class="skill-icon"><i class="fa-solid fa-microchip"></i></div>
-                        <h3>Core CS & Databases</h3>
-                    </div>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Data Structures & Algorithms</span>
-                        <span class="skill-tag">OOP</span>
-                        <span class="skill-tag">DBMS</span>
-                    </div>
-                </div>
-                <!-- Tools -->
+
+                <!-- Core CS & Databases -->
                 <div class="skill-category" data-animate="fade-up" data-delay="300">
                     <div class="skill-category-header">
-                        <div class="skill-icon"><i class="fa-solid fa-wrench"></i></div>
-                        <h3>Tools & Platforms</h3>
+                        <div class="skill-icon"><i class="fa-solid fa-database"></i></div>
+                        <div>
+                            <h3>Databases &amp; Systems</h3>
+                            <span class="skill-category-sub">Storage &amp; Data Structures</span>
+                        </div>
+                    </div>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Data Structures &amp; Algorithms</span>
+                        <span class="skill-tag">DBMS (MySQL / PostgreSQL)</span>
+                        <span class="skill-tag">SQLite</span>
+                        <span class="skill-tag">Object-Oriented Design</span>
+                        <span class="skill-tag">OS Internals</span>
+                    </div>
+                </div>
+
+                <!-- Hardware & Machine Learning -->
+                <div class="skill-category" data-animate="fade-up" data-delay="400">
+                    <div class="skill-category-header">
+                        <div class="skill-icon"><i class="fa-solid fa-microchip"></i></div>
+                        <div>
+                            <h3>IoT &amp; Machine Learning</h3>
+                            <span class="skill-category-sub">Hardware &amp; Predictive Models</span>
+                        </div>
+                    </div>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Scikit-Learn</span>
+                        <span class="skill-tag">Speech Recognition</span>
+                        <span class="skill-tag">Arduino</span>
+                        <span class="skill-tag">ESP8266 Wi-Fi</span>
+                        <span class="skill-tag">Sensors &amp; Actuators</span>
+                    </div>
+                </div>
+
+                <!-- Engineering Workflow -->
+                <div class="skill-category" data-animate="fade-up" data-delay="500">
+                    <div class="skill-category-header">
+                        <div class="skill-icon"><i class="fa-solid fa-terminal"></i></div>
+                        <div>
+                            <h3>DevOps &amp; Workflow</h3>
+                            <span class="skill-category-sub">Version Control &amp; Quality</span>
+                        </div>
                     </div>
                     <div class="skill-tags">
                         <span class="skill-tag">Git</span>
                         <span class="skill-tag">GitHub</span>
-                        <span class="skill-tag">Arduino</span>
-                        <span class="skill-tag">ESP8266</span>
-                    </div>
-                </div>
-                <!-- Specializations -->
-                <div class="skill-category" data-animate="fade-up" data-delay="400">
-                    <div class="skill-category-header">
-                        <div class="skill-icon"><i class="fa-solid fa-brain"></i></div>
-                        <h3>Specializations</h3>
-                    </div>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Machine Learning</span>
-                        <span class="skill-tag">IoT Systems</span>
-                        <span class="skill-tag">Speech Recognition</span>
+                        <span class="skill-tag">Linux / Unix Shell</span>
+                        <span class="skill-tag">Postman</span>
+                        <span class="skill-tag">Full SDLC Lifecycle</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ============ PROJECTS ============ -->
-    <section class="section" id="projects">
+    <!-- ============ ABOUT ME ============ -->
+    <section class="section" id="about">
         <div class="container">
-            <h2 class="section-title" data-animate="fade-up">
-                <span class="section-number">03.</span> Featured Projects
-            </h2>
-            <div class="projects-grid">
-                <!-- Mehfil -->
-                <article class="project-card featured" data-animate="fade-up">
-                    <div class="project-header">
-                        <div class="project-icon"><i class="fa-solid fa-radio"></i></div>
-                        <div class="project-links">
-                            <a href="#" class="project-link" title="GitHub"><i class="fa-brands fa-github"></i></a>
-                            <a href="#" class="project-link" title="Live Demo"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-                        </div>
-                    </div>
-                    <h3 class="project-title">Mehfil</h3>
-                    <p class="project-subtitle">Synchronized Online Radio Platform</p>
-                    <p class="project-description">
-                        Full-stack web app delivering real-time, synchronized audio streaming to multiple
-                        concurrent listeners across themed radio stations. Features a custom time-sync
-                        algorithm that eliminates playback drift — every listener hears the same thing
-                        at the same time, no matter when they join.
-                    </p>
-                    <ul class="project-highlights">
-                        <li>Custom time-synchronization algorithm for zero-drift playback</li>
-                        <li>Resilient backend audio-extraction & streaming pipeline</li>
-                        <li>Real-time multi-listener support across themed stations</li>
-                    </ul>
-                    <div class="project-tech">
-                        <span>React</span>
-                        <span>Vite</span>
-                        <span>Express.js</span>
-                        <span>Node.js</span>
-                    </div>
-                </article>
+            <div class="section-header" data-animate="fade-up">
+                <div class="section-tag">
+                    <i class="fa-solid fa-user"></i> ABOUT / 03
+                </div>
+                <h2 class="section-title">Background &amp; Philosophy</h2>
+            </div>
 
-                <!-- IoT Farm -->
-                <article class="project-card" data-animate="fade-up" data-delay="100">
-                    <div class="project-header">
-                        <div class="project-icon"><i class="fa-solid fa-seedling"></i></div>
-                        <div class="project-links">
-                            <a href="#" class="project-link" title="GitHub"><i class="fa-brands fa-github"></i></a>
-                        </div>
-                    </div>
-                    <h3 class="project-title">Indoor Farming Monitor</h3>
-                    <p class="project-subtitle">IoT + Machine Learning System</p>
-                    <p class="project-description">
-                        IoT-based environmental monitoring system with Arduino/ESP8266 microcontrollers,
-                        DHT11 & soil-moisture sensors, and ML-driven irrigation decisions. Data-driven
-                        crop care with automated control loops.
+            <div class="about-grid">
+                <div class="about-text" data-animate="fade-right">
+                    <p class="lead-paragraph">
+                        I'm a <strong>Computer Science &amp; Engineering</strong> graduate from Chandigarh University
+                        dedicated to building scalable, security-conscious software systems with rigorous engineering principles.
                     </p>
-                    <ul class="project-highlights">
-                        <li>Real-time sensor data collection & SQL logging</li>
-                        <li>Automated irrigation control via live sensor data</li>
-                        <li>ML-powered smart irrigation decisions</li>
-                    </ul>
-                    <div class="project-tech">
-                        <span>Python</span>
-                        <span>Arduino</span>
-                        <span>ESP8266</span>
-                        <span>SQL</span>
-                        <span>ML</span>
-                    </div>
-                </article>
+                    <p>
+                        My work bridges deep backend logic with refined user interfaces — from building inline security firewalls that prevent autonomous AI agents from leaking secrets or running destructive commands, to architecting zero-drift audio streaming engines and responsive voice assistants.
+                    </p>
+                    <p>
+                        Beyond code, my background in <strong>NCC (B Certificate)</strong> instilled a high standard of discipline, operational focus, and execution consistency. I approach software engineering with a product-owner mindset: understanding the threat model, designing clean abstractions, and delivering robust systems.
+                    </p>
 
-                <!-- Jarvis -->
-                <article class="project-card" data-animate="fade-up" data-delay="200">
-                    <div class="project-header">
-                        <div class="project-icon"><i class="fa-solid fa-microphone"></i></div>
-                        <div class="project-links">
-                            <a href="#" class="project-link" title="GitHub"><i class="fa-brands fa-github"></i></a>
+                    <div class="about-quick-specs">
+                        <div class="spec-row">
+                            <span class="spec-key">Degree</span>
+                            <span class="spec-val">B.E. in Computer Science &amp; Engineering (2022–2026)</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-key">Institution</span>
+                            <span class="spec-val">Chandigarh University, Punjab, India</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-key">Specialties</span>
+                            <span class="spec-val">AI Security · Full-Stack Systems · Intelligent Automation</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-key">Leadership</span>
+                            <span class="spec-val">NCC Cadet — B Certificate Holder</span>
                         </div>
                     </div>
-                    <h3 class="project-title">Jarvis</h3>
-                    <p class="project-subtitle">Voice-Command Assistant</p>
-                    <p class="project-description">
-                        Python-based voice assistant that automates everyday tasks — launching apps,
-                        running web searches, and more — through natural spoken commands with
-                        speech-to-text and text-to-speech integration.
-                    </p>
-                    <ul class="project-highlights">
-                        <li>Speech-to-text & text-to-speech integration</li>
-                        <li>Natural language command processing</li>
-                        <li>Automated app launching & web search</li>
-                    </ul>
-                    <div class="project-tech">
-                        <span>Python</span>
-                        <span>Speech Recognition</span>
+                </div>
+
+                <div class="about-image" data-animate="fade-left">
+                    <div class="image-frame">
+                        <img src="profile.jpeg" alt="Pankaj" class="profile-image">
+                        <div class="image-border"></div>
+                        <div class="image-badge">
+                            <i class="fa-solid fa-code"></i> Pankaj
+                        </div>
                     </div>
-                </article>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- ============ EDUCATION ============ -->
+    <!-- ============ TIMELINE & CERTIFICATIONS ============ -->
     <section class="section section-alt" id="education">
         <div class="container">
-            <h2 class="section-title" data-animate="fade-up">
-                <span class="section-number">04.</span> Education & Certifications
-            </h2>
+            <div class="section-header" data-animate="fade-up">
+                <div class="section-tag">
+                    <i class="fa-solid fa-graduation-cap"></i> MILESTONES / 04
+                </div>
+                <h2 class="section-title">Education &amp; Credentials</h2>
+            </div>
+
             <div class="education-grid">
                 <!-- Timeline -->
                 <div class="timeline" data-animate="fade-right">
@@ -311,27 +552,27 @@
                         <div class="timeline-marker"></div>
                         <div class="timeline-content">
                             <span class="timeline-date">2022 — 2026</span>
-                            <h3>B.E., Computer Science & Engineering</h3>
+                            <h3>B.E., Computer Science &amp; Engineering</h3>
                             <p class="timeline-institution">Chandigarh University, Gharuan, Punjab</p>
-                            <p class="timeline-detail">CGPA: 7.3 / 10</p>
+                            <p class="timeline-detail">CGPA: 7.3 / 10 · Core Focus: Software Engineering, DBMS, Systems</p>
                         </div>
                     </div>
                     <div class="timeline-item">
                         <div class="timeline-marker"></div>
                         <div class="timeline-content">
                             <span class="timeline-date">2021 — 2022</span>
-                            <h3>Intermediate (CBSE)</h3>
+                            <h3>Intermediate (Senior Secondary - CBSE)</h3>
                             <p class="timeline-institution">Jawahar Navodaya Vidyalaya, Fatehgarh Sahib</p>
-                            <p class="timeline-detail">Percentage: 78%</p>
+                            <p class="timeline-detail">Score: 78% · Science &amp; Mathematics Stream</p>
                         </div>
                     </div>
                     <div class="timeline-item">
                         <div class="timeline-marker"></div>
                         <div class="timeline-content">
                             <span class="timeline-date">2019 — 2020</span>
-                            <h3>Matriculation (CBSE)</h3>
+                            <h3>Matriculation (Secondary - CBSE)</h3>
                             <p class="timeline-institution">Jawahar Navodaya Vidyalaya, Fatehgarh Sahib</p>
-                            <p class="timeline-detail">Percentage: 88%</p>
+                            <p class="timeline-detail">Score: 88% · High Academic Distinction</p>
                         </div>
                     </div>
                 </div>
@@ -339,32 +580,48 @@
                 <!-- Certifications & Achievements -->
                 <div class="cert-achieve-wrapper">
                     <div class="certifications" data-animate="fade-left">
-                        <h3><i class="fa-solid fa-certificate"></i> Certifications</h3>
+                        <h3><i class="fa-solid fa-certificate"></i> Verified Certifications</h3>
                         <ul class="cert-list">
                             <li>
-                                <i class="fa-solid fa-check-circle"></i>
-                                <span>Introduction to Databases</span>
+                                <div class="cert-icon-bullet"><i class="fa-solid fa-check"></i></div>
+                                <div>
+                                    <strong>Introduction to Relational Databases</strong>
+                                    <span>SQL Schema Design, Queries, and Normalization</span>
+                                </div>
                             </li>
                             <li>
-                                <i class="fa-solid fa-check-circle"></i>
-                                <span>Data Analysis with Python</span>
+                                <div class="cert-icon-bullet"><i class="fa-solid fa-check"></i></div>
+                                <div>
+                                    <strong>Data Analysis with Python</strong>
+                                    <span>NumPy, Pandas &amp; Statistical Modeling</span>
+                                </div>
                             </li>
                             <li>
-                                <i class="fa-solid fa-check-circle"></i>
-                                <span>Django for Everybody</span>
+                                <div class="cert-icon-bullet"><i class="fa-solid fa-check"></i></div>
+                                <div>
+                                    <strong>Django &amp; Full-Stack Web Architecture</strong>
+                                    <span>Backend APIs, ORM, and MVC Frameworks</span>
+                                </div>
                             </li>
                         </ul>
                     </div>
+
                     <div class="achievements" data-animate="fade-left" data-delay="100">
-                        <h3><i class="fa-solid fa-trophy"></i> Achievements</h3>
+                        <h3><i class="fa-solid fa-award"></i> Honors &amp; Leadership</h3>
                         <ul class="cert-list">
                             <li>
-                                <i class="fa-solid fa-medal"></i>
-                                <span>NCC — B Certificate: Discipline, leadership & teamwork</span>
+                                <div class="cert-icon-bullet"><i class="fa-solid fa-medal"></i></div>
+                                <div>
+                                    <strong>NCC — B Certificate Credential</strong>
+                                    <span>Certified discipline, strategic leadership, and squad teamwork</span>
+                                </div>
                             </li>
                             <li>
-                                <i class="fa-solid fa-users"></i>
-                                <span>End-to-end project owner across the full SDLC</span>
+                                <div class="cert-icon-bullet"><i class="fa-solid fa-code-commit"></i></div>
+                                <div>
+                                    <strong>Full Lifecycle Project Ownership</strong>
+                                    <span>From initial architecture to zero-PII security verification &amp; deployment</span>
+                                </div>
                             </li>
                         </ul>
                     </div>
@@ -376,45 +633,77 @@
     <!-- ============ CONTACT ============ -->
     <section class="section" id="contact">
         <div class="container">
-            <h2 class="section-title" data-animate="fade-up">
-                <span class="section-number">05.</span> Get In Touch
-            </h2>
-            <div class="contact-wrapper" data-animate="fade-up" data-delay="100">
-                <p class="contact-description">
-                    I'm currently looking for new opportunities and my inbox is always open.
-                    Whether you have a question, a project idea, or just want to say hi — I'll do my
-                    best to get back to you!
+            <div class="section-header text-center" data-animate="fade-up">
+                <div class="section-tag justify-center">
+                    <i class="fa-solid fa-paper-plane"></i> CONTACT / 05
+                </div>
+                <h2 class="section-title">Let's Build Something Exceptional</h2>
+                <p class="section-subtitle">
+                    Have an open role, an ambitious project, or an engineering challenge? My inbox is always open.
                 </p>
+            </div>
+
+            <div class="contact-wrapper" data-animate="fade-up" data-delay="100">
                 <div class="contact-cards">
-                    <a href="mailto:pankajrajput26121976@gmail.com" class="contact-card">
-                        <i class="fa-solid fa-envelope"></i>
-                        <span>pankajrajput26121976@gmail.com</span>
-                    </a>
-                    <a href="tel:+916284048607" class="contact-card">
-                        <i class="fa-solid fa-phone"></i>
-                        <span>+91 6284048607</span>
-                    </a>
+                    <div class="contact-card copyable-card" id="copyEmailCard" data-email="pankajrajput26121976@gmail.com" title="Click to copy email">
+                        <div class="contact-card-icon"><i class="fa-solid fa-envelope"></i></div>
+                        <div class="contact-card-info">
+                            <span class="contact-card-label">Direct Email (Click to Copy)</span>
+                            <span class="contact-card-value">pankajrajput26121976@gmail.com</span>
+                        </div>
+                        <i class="fa-regular fa-copy contact-card-action"></i>
+                    </div>
+
                     <a href="https://linkedin.com/in/pankaj-8551032b1" target="_blank" class="contact-card">
-                        <i class="fa-brands fa-linkedin"></i>
-                        <span>LinkedIn Profile</span>
+                        <div class="contact-card-icon"><i class="fa-brands fa-linkedin"></i></div>
+                        <div class="contact-card-info">
+                            <span class="contact-card-label">Professional Network</span>
+                            <span class="contact-card-value">linkedin.com/in/pankaj-8551032b1</span>
+                        </div>
+                        <i class="fa-solid fa-arrow-up-right-from-square contact-card-action"></i>
                     </a>
+
                     <a href="https://github.com/Pankaj-0777" target="_blank" class="contact-card">
-                        <i class="fa-brands fa-github"></i>
-                        <span>GitHub Profile</span>
+                        <div class="contact-card-icon"><i class="fa-brands fa-github"></i></div>
+                        <div class="contact-card-info">
+                            <span class="contact-card-label">Code Repositories</span>
+                            <span class="contact-card-value">github.com/Pankaj-0777</span>
+                        </div>
+                        <i class="fa-solid fa-arrow-up-right-from-square contact-card-action"></i>
+                    </a>
+
+                    <a href="tel:+916284048607" class="contact-card">
+                        <div class="contact-card-icon"><i class="fa-solid fa-phone"></i></div>
+                        <div class="contact-card-info">
+                            <span class="contact-card-label">Direct Phone</span>
+                            <span class="contact-card-value">+91 6284048607</span>
+                        </div>
+                        <i class="fa-solid fa-phone-volume contact-card-action"></i>
                     </a>
                 </div>
-                <a href="mailto:pankajrajput26121976@gmail.com" class="btn btn-primary btn-lg">
-                    <i class="fa-solid fa-paper-plane"></i> Say Hello
-                </a>
+
+                <div class="contact-cta-wrapper">
+                    <a href="mailto:pankajrajput26121976@gmail.com" class="btn btn-primary btn-lg">
+                        <i class="fa-solid fa-paper-plane"></i> Send Direct Email
+                    </a>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- ============ FOOTER ============ -->
     <footer class="footer">
-        <div class="container">
-            <p>Designed & Built by <span class="gradient-text">Pankaj</span></p>
-            <p class="footer-sub">© 2026 · All rights reserved</p>
+        <div class="container footer-container">
+            <div class="footer-left">
+                <span class="footer-logo">&lt;Pankaj /&gt;</span>
+                <p class="footer-sub">Software Engineer · Focused on Resilient Systems &amp; Security</p>
+            </div>
+            <div class="footer-center">
+                <span class="footer-badge">● Systems Active · India</span>
+            </div>
+            <div class="footer-right">
+                <p>© 2026 Pankaj. All rights reserved.</p>
+            </div>
         </div>
     </footer>
 
