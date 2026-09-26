@@ -22,85 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
     updateLiveTime();
     setInterval(updateLiveTime, 1000);
 
-    // ============ WEB AUDIO INTERACTION SYNTHESIZER (huyml.co inspired) ============
-    let audioContext = null;
-    let soundEnabled = false;
-    const soundToggle = document.getElementById('soundToggle');
-    const soundIcon = document.getElementById('soundIcon');
-    const soundLabel = document.getElementById('soundLabel');
-
-    function initAudio() {
-        if (!audioContext) {
-            audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        }
-        if (audioContext.state === 'suspended') {
-            audioContext.resume();
-        }
-    }
-
-    function playSound(type = 'click') {
-        if (!soundEnabled || !audioContext) return;
-        try {
-            const osc = audioContext.createOscillator();
-            const gain = audioContext.createGain();
-            osc.connect(gain);
-            gain.connect(audioContext.destination);
-
-            const now = audioContext.currentTime;
-
-            if (type === 'click') {
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(440, now);
-                osc.frequency.exponentialRampToValueAtTime(880, now + 0.05);
-                gain.gain.setValueAtTime(0.04, now);
-                gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.05);
-                osc.start(now);
-                osc.stop(now + 0.05);
-            } else if (type === 'success') {
-                osc.type = 'triangle';
-                osc.frequency.setValueAtTime(523.25, now); // C5
-                osc.frequency.setValueAtTime(659.25, now + 0.06); // E5
-                osc.frequency.setValueAtTime(783.99, now + 0.12); // G5
-                gain.gain.setValueAtTime(0.06, now);
-                gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.22);
-                osc.start(now);
-                osc.stop(now + 0.22);
-            } else if (type === 'hover') {
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(320, now);
-                gain.gain.setValueAtTime(0.015, now);
-                gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.03);
-                osc.start(now);
-                osc.stop(now + 0.03);
-            }
-        } catch (e) {
-            console.warn('Web Audio playback error', e);
-        }
-    }
-
-    if (soundToggle) {
-        soundToggle.addEventListener('click', () => {
-            initAudio();
-            soundEnabled = !soundEnabled;
-            if (soundEnabled) {
-                soundToggle.classList.add('active');
-                soundIcon.className = 'fa-solid fa-volume-high';
-                soundLabel.textContent = 'Audio: ON';
-                playSound('success');
-            } else {
-                soundToggle.classList.remove('active');
-                soundIcon.className = 'fa-solid fa-volume-xmark';
-                soundLabel.textContent = 'Audio: OFF';
-            }
-        });
-    }
-
-    // Attach micro-sounds to interactive elements
-    document.querySelectorAll('button, a.btn, .filter-btn, .project-link-btn, .contact-card').forEach(el => {
-        el.addEventListener('mouseenter', () => playSound('hover'));
-        el.addEventListener('click', () => playSound('click'));
-    });
-
     // ============ TOAST & COPY EMAIL ============
     const toast = document.getElementById('toast');
     const toastMessage = document.getElementById('toastMessage');
@@ -110,7 +31,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!toast) return;
         if (toastMessage) toastMessage.textContent = msg;
         toast.classList.add('show');
-        playSound('success');
 
         if (toastTimeout) clearTimeout(toastTimeout);
         toastTimeout = setTimeout(() => {
@@ -184,27 +104,148 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // ============ CURSOR GLOW ============
+    // ============ CODER CANVAS BACKGROUND (MATRIX & CODE STREAM ENGINE) ============
+    const canvas = document.getElementById('bgCanvas');
+    if (canvas) {
+        const ctx = canvas.getContext('2d');
+        let width, height;
+
+        // Coder / Cyber character set
+        const chars = '01</>{}[];:=+*#$@%&!~_?^|\\0x4F0x8A0x9Fconst await async import return fn struct enum type interface boolean string number void select from where join limit';
+        const charArray = chars.split(' ');
+
+        let columns = [];
+        let fontSize = 14;
+
+        let mouse = { x: -1000, y: -1000 };
+        document.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+        document.addEventListener('mouseleave', () => {
+            mouse.x = -1000;
+            mouse.y = -1000;
+        });
+
+        function resize() {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width;
+            canvas.height = height;
+
+            // Adjust column spacing based on screen size
+            const numCols = Math.floor(width / (fontSize * 1.8));
+            columns = [];
+            for (let i = 0; i < numCols; i++) {
+                columns.push({
+                    x: i * fontSize * 1.8 + Math.random() * 5,
+                    y: Math.random() * -height,
+                    speed: Math.random() * 0.8 + 0.4,
+                    chars: [],
+                    length: Math.floor(Math.random() * 12) + 8
+                });
+                // Pre-fill column character stack
+                for (let j = 0; j < columns[i].length; j++) {
+                    columns[i].chars.push(charArray[Math.floor(Math.random() * charArray.length)]);
+                }
+            }
+        }
+
+        window.addEventListener('resize', resize);
+
+        function animateCanvas() {
+            // Fade effect for smooth trailing digital streams
+            ctx.fillStyle = 'rgba(5, 5, 8, 0.15)';
+            ctx.fillRect(0, 0, width, height);
+
+            ctx.font = `${fontSize}px 'JetBrains Mono', 'Fira Code', monospace`;
+
+            for (let i = 0; i < columns.length; i++) {
+                const col = columns[i];
+                col.y += col.speed;
+
+                if (col.y - (col.length * fontSize * 1.4) > height) {
+                    col.y = Math.random() * -100;
+                    col.speed = Math.random() * 0.8 + 0.4;
+                    // Randomize characters on recycle
+                    for (let j = 0; j < col.length; j++) {
+                        col.chars[j] = charArray[Math.floor(Math.random() * charArray.length)];
+                    }
+                }
+
+                for (let j = 0; j < col.length; j++) {
+                    const charY = col.y - (j * fontSize * 1.4);
+                    if (charY < 0 || charY > height) continue;
+
+                    const dx = mouse.x - col.x;
+                    const dy = mouse.y - charY;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    const isMouseNear = dist < 180;
+
+                    // Leading character is bright cyan / white, tail fades out
+                    if (j === 0) {
+                        ctx.fillStyle = isMouseNear ? '#67e8f9' : 'rgba(99, 102, 241, 0.85)';
+                        ctx.shadowColor = '#6366f1';
+                        ctx.shadowBlur = isMouseNear ? 12 : 4;
+                    } else if (isMouseNear) {
+                        // Mouse reactive glow - turns neon indigo/cyan
+                        const intensity = (1 - dist / 180);
+                        ctx.fillStyle = `rgba(103, 232, 249, ${0.4 + intensity * 0.5})`;
+                        ctx.shadowColor = '#06b6d4';
+                        ctx.shadowBlur = 8 * intensity;
+                    } else {
+                        // Ambient subtle code stream opacity
+                        const alpha = (1 - j / col.length) * 0.18;
+                        ctx.fillStyle = `rgba(99, 102, 241, ${alpha})`;
+                        ctx.shadowBlur = 0;
+                    }
+
+                    const char = col.chars[j] || '0';
+                    ctx.fillText(char, col.x, charY);
+                }
+            }
+
+            requestAnimationFrame(animateCanvas);
+        }
+
+        resize();
+        animateCanvas();
+    }
+
+    // ============ BACKGROUND MESH INTERACTION ============
     const cursorGlow = document.getElementById('cursorGlow');
-    let cursorVisible = false;
+    let targetX = window.innerWidth / 2;
+    let targetY = window.innerHeight / 2;
+    let glowX = targetX, glowY = targetY;
+    let cursorActive = false;
 
     document.addEventListener('mousemove', (e) => {
-        if (!cursorVisible && cursorGlow) {
+        targetX = e.clientX;
+        targetY = e.clientY;
+        if (!cursorActive && cursorGlow) {
             cursorGlow.classList.add('active');
-            cursorVisible = true;
-        }
-        if (cursorGlow) {
-            cursorGlow.style.left = e.clientX + 'px';
-            cursorGlow.style.top = e.clientY + 'px';
+            cursorActive = true;
         }
     });
 
     document.addEventListener('mouseleave', () => {
         if (cursorGlow) {
             cursorGlow.classList.remove('active');
-            cursorVisible = false;
+            cursorActive = false;
         }
     });
+
+    // Smooth subtle ambient movement (lerp)
+    function renderBackgroundInteraction() {
+        if (cursorActive && cursorGlow) {
+            glowX += (targetX - glowX) * 0.05;
+            glowY += (targetY - glowY) * 0.05;
+            cursorGlow.style.left = glowX + 'px';
+            cursorGlow.style.top = glowY + 'px';
+        }
+        requestAnimationFrame(renderBackgroundInteraction);
+    }
+    requestAnimationFrame(renderBackgroundInteraction);
 
     // ============ NAVBAR SCROLL ============
     const navbar = document.getElementById('navbar');
