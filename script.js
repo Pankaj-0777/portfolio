@@ -115,7 +115,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const charArray = chars.split(' ');
 
         let columns = [];
-        let fontSize = 14;
 
         let mouse = { x: -1000, y: -1000 };
         let isMobile = /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
