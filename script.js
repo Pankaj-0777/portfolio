@@ -118,6 +118,15 @@ document.addEventListener('DOMContentLoaded', () => {
         let fontSize = 14;
 
         let mouse = { x: -1000, y: -1000 };
+        let isMobile = /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+        // Adjust font size and density for mobile performance
+        let fontSize = isMobile ? 11 : 14;
+        let columnSpacing = isMobile ? 1.6 : 1.8;
+        let fadeAlpha = isMobile ? 0.08 : 0.15;
+        let maxColumns = isMobile ? 30 : null; // Cap columns on mobile
+        let columnLength = isMobile ? 6 : 8; // Shorter trails on mobile
+
         document.addEventListener('mousemove', (e) => {
             mouse.x = e.clientX;
             mouse.y = e.clientY;
@@ -127,22 +136,53 @@ document.addEventListener('DOMContentLoaded', () => {
             mouse.y = -1000;
         });
 
+        // Touch support for mobile
+        document.addEventListener('touchstart', (e) => {
+            if (e.touches.length > 0) {
+                mouse.x = e.touches[0].clientX;
+                mouse.y = e.touches[0].clientY;
+            }
+        }, { passive: true });
+
+        document.addEventListener('touchmove', (e) => {
+            if (e.touches.length > 0) {
+                mouse.x = e.touches[0].clientX;
+                mouse.y = e.touches[0].clientY;
+            }
+        }, { passive: true });
+
+        document.addEventListener('touchend', () => {
+            // Keep last touch position for a moment then fade
+            setTimeout(() => {
+                mouse.x = -1000;
+                mouse.y = -1000;
+            }, 500);
+        }, { passive: true });
+
         function resize() {
             width = window.innerWidth;
             height = window.innerHeight;
             canvas.width = width;
             canvas.height = height;
 
+            // Recalculate mobile flags on resize
+            isMobile = /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || width < 768;
+            fontSize = isMobile ? 11 : 14;
+            columnSpacing = isMobile ? 1.6 : 1.8;
+            fadeAlpha = isMobile ? 0.08 : 0.15;
+            columnLength = isMobile ? 6 : 8;
+            maxColumns = isMobile ? 30 : null;
+
             // Adjust column spacing based on screen size
-            const numCols = Math.floor(width / (fontSize * 1.8));
+            const numCols = maxColumns ? Math.min(maxColumns, Math.floor(width / (fontSize * columnSpacing))) : Math.floor(width / (fontSize * columnSpacing));
             columns = [];
             for (let i = 0; i < numCols; i++) {
                 columns.push({
-                    x: i * fontSize * 1.8 + Math.random() * 5,
+                    x: i * fontSize * columnSpacing + Math.random() * 5,
                     y: Math.random() * -height,
                     speed: Math.random() * 0.8 + 0.4,
                     chars: [],
-                    length: Math.floor(Math.random() * 12) + 8
+                    length: Math.floor(Math.random() * 8) + columnLength
                 });
                 // Pre-fill column character stack
                 for (let j = 0; j < columns[i].length; j++) {
@@ -155,10 +195,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function animateCanvas() {
             // Fade effect for smooth trailing digital streams
-            ctx.fillStyle = 'rgba(5, 5, 8, 0.15)';
+            ctx.fillStyle = `rgba(5, 5, 8, ${fadeAlpha})`;
             ctx.fillRect(0, 0, width, height);
 
             ctx.font = `${fontSize}px 'JetBrains Mono', 'Fira Code', monospace`;
+
+            // Mobile: reduce interaction radius for touch
+            const interactionRadius = isMobile ? 120 : 180;
+            const leadAlpha = isMobile ? 0.7 : 0.85;
+            const leadBlur = isMobile ? 8 : 12;
+            const nearBlur = isMobile ? 6 : 8;
 
             for (let i = 0; i < columns.length; i++) {
                 const col = columns[i];
@@ -180,22 +226,22 @@ document.addEventListener('DOMContentLoaded', () => {
                     const dx = mouse.x - col.x;
                     const dy = mouse.y - charY;
                     const dist = Math.sqrt(dx * dx + dy * dy);
-                    const isMouseNear = dist < 180;
+                    const isMouseNear = dist < interactionRadius;
 
                     // Leading character is bright cyan / white, tail fades out
                     if (j === 0) {
-                        ctx.fillStyle = isMouseNear ? '#67e8f9' : 'rgba(99, 102, 241, 0.85)';
+                        ctx.fillStyle = isMouseNear ? '#67e8f9' : `rgba(99, 102, 241, ${leadAlpha})`;
                         ctx.shadowColor = '#6366f1';
-                        ctx.shadowBlur = isMouseNear ? 12 : 4;
+                        ctx.shadowBlur = isMouseNear ? leadBlur : (isMobile ? 3 : 4);
                     } else if (isMouseNear) {
-                        // Mouse reactive glow - turns neon indigo/cyan
-                        const intensity = (1 - dist / 180);
-                        ctx.fillStyle = `rgba(103, 232, 249, ${0.4 + intensity * 0.5})`;
+                        // Mouse/touch reactive glow - turns neon indigo/cyan
+                        const intensity = (1 - dist / interactionRadius);
+                        ctx.fillStyle = `rgba(103, 232, 249, ${0.3 + intensity * 0.5})`;
                         ctx.shadowColor = '#06b6d4';
-                        ctx.shadowBlur = 8 * intensity;
+                        ctx.shadowBlur = nearBlur * intensity;
                     } else {
                         // Ambient subtle code stream opacity
-                        const alpha = (1 - j / col.length) * 0.18;
+                        const alpha = (1 - j / col.length) * (isMobile ? 0.12 : 0.18);
                         ctx.fillStyle = `rgba(99, 102, 241, ${alpha})`;
                         ctx.shadowBlur = 0;
                     }
