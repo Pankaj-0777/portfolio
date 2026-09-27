@@ -72,6 +72,8 @@ body {
     color: var(--text-primary);
     line-height: 1.65;
     overflow-x: hidden;
+    overflow-wrap: break-word;
+    word-break: break-word;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -317,9 +319,6 @@ code {
     display: flex;
     align-items: center;
     gap: 12px;
-}
-
-
 }
 
 .nav-cta {
@@ -1477,6 +1476,10 @@ code {
         --section-padding: 70px 0;
     }
 
+    .container {
+        padding: 0 16px;
+    }
+
     .hero-content {
         padding: 36px 18px 32px;
         border-radius: 20px;
@@ -1498,6 +1501,7 @@ code {
 
     /* Skills grid - tighter mobile */
     .skills-grid {
+        grid-template-columns: 1fr;
         gap: 18px;
         padding: 28px 18px;
     }
@@ -1771,6 +1775,10 @@ code {
         --section-padding: 60px 0;
     }
 
+    .container {
+        padding: 0 12px;
+    }
+
     .hero-content {
         padding: 28px 14px 24px;
         border-radius: 16px;
@@ -1919,6 +1927,17 @@ code {
     .form-group textarea {
         padding: 12px 14px;
         font-size: 0.9rem;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+        width: 100%;
+        gap: 12px;
+    }
+
+    .hero-actions .btn {
+        width: 100%;
+        justify-content: center;
     }
 
     .btn-primary {
